@@ -697,6 +697,7 @@ MonoBehaviour:
   _impactEffect: {fileID: 8372892099518431854, guid: 8d97fdc96499d6b41b97c3d42cfbbe6b,
     type: 3}
   reloadTime: 0.7
+  isReloading: 0
   gun: {fileID: 781056270}
   _maxAmmo: 10
   _range: 50
@@ -5882,6 +5883,7 @@ GameObject:
   - component: {fileID: 1779057180}
   - component: {fileID: 1779057179}
   - component: {fileID: 1779057182}
+  - component: {fileID: 1779057183}
   m_Layer: 0
   m_Name: Sniper
   m_TagString: Untagged
@@ -5969,7 +5971,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1779057177}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8910eb822cbb64449ac1dba3c06cddbd, type: 3}
   m_Name: 
@@ -5979,10 +5981,33 @@ MonoBehaviour:
   _impactEffect: {fileID: 8372892099518431854, guid: 8d97fdc96499d6b41b97c3d42cfbbe6b,
     type: 3}
   reloadTime: 1.3
+  isReloading: 0
   gun: {fileID: 1779057177}
   _maxAmmo: 4
   _range: 100
   _fireRate: 0.5
+--- !u!114 &1779057183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779057177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 097705b9a71d91b41b7c39b139dffe17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bulletSpread: 0.02
+  _muzzle: {fileID: 927344833}
+  _impactEffect: {fileID: 8372892099518431854, guid: 8d97fdc96499d6b41b97c3d42cfbbe6b,
+    type: 3}
+  reloadTime: 1.3
+  isReloading: 0
+  gun: {fileID: 1779057177}
+  _maxAmmo: 30
+  _range: 50
+  _fireRate: 0.1
 --- !u!1 &1947839742
 GameObject:
   m_ObjectHideFlags: 0

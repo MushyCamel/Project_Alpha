@@ -7,11 +7,11 @@ public class GunBaseScript : MonoBehaviour
 {
     //private float _damage = 10f;
     [SerializeField]
-    private float _bulletSpread = 0.02f;
+    protected float _bulletSpread = 0.02f;
     [SerializeField]
-    private ParticleSystem _muzzle;
+    protected ParticleSystem _muzzle;
     [SerializeField]
-    private GameObject _impactEffect;
+    protected GameObject _impactEffect;
     [SerializeField]
     protected float reloadTime;
     [SerializeField]
@@ -65,8 +65,5 @@ public class GunBaseScript : MonoBehaviour
             GameObject impactGO = Instantiate(_impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
             Destroy(impactGO, 1f);
         }
-
-
     }
-
 }
