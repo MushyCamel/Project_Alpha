@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PistolScript : GunBaseScript
 {
-    //[SerializeField]
-    //private float _damage = 10f;
+    [SerializeField]
+    private float _damage = 4f;
     [SerializeField]
     private float _range = 100f;
 
@@ -25,7 +25,7 @@ public class PistolScript : GunBaseScript
 
         if (Input.GetButtonDown("Fire1"))
         {
-            Shoot(_range);
+            Shoot(_range, _damage);
         }
     }
 }

@@ -7,6 +7,8 @@ public class ShotgunScript : GunBaseScript
     [SerializeField]
     private float _range = 100f;
     [SerializeField]
+    private float _damage = 2f;
+    [SerializeField]
     private float _fireRate = 5f;
     [SerializeField]
     private float _bulletsPerShot = 4;
@@ -41,19 +43,24 @@ public class ShotgunScript : GunBaseScript
         //moves shot within the 
         Vector3 direction = gun.transform.forward;
 
+        //bullet spread for each of the rays that are cast
         for (int i = 1; i <= _bulletsPerShot; i++)
         {
             direction.x += UnityEngine.Random.Range(-_bulletSpread, _bulletSpread);
             direction.y += UnityEngine.Random.Range(-_bulletSpread, _bulletSpread);
             direction.z += UnityEngine.Random.Range(-_bulletSpread, _bulletSpread);
 
-
-
             RaycastHit hit;
             if (Physics.Raycast(gun.transform.position, direction, out hit, _range))
             {
                 Debug.DrawRay(gun.transform.position, direction * _range, Color.red, 1f);
                 Debug.Log(hit.transform.name);
+                IDamagable damagable = hit.collider.GetComponent<IDamagable>();
+                if (damagable != null)
+                {
+                    damagable.TakeDamage(_damage);
+
+                }
             }
 
             //creates an impact effect at the hit location then destroys it

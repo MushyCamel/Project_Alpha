@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SniperScript : GunBaseScript
 {
-    //[SerializeField]
-    //private float _damage = 10f;
+    [SerializeField]
+    private float _damage = 10f;
     [SerializeField]
     private float _range = 100f;
     [SerializeField]
@@ -28,7 +28,7 @@ public class SniperScript : GunBaseScript
         if (Input.GetButtonDown("Fire1") && Time.time >= nextTimeToFire)
         {
             nextTimeToFire = Time.time + 1f / _fireRate;
-            Shoot(_range);
+            Shoot(_range, _damage);
         }
     }
 }

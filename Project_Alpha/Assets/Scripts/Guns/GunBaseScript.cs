@@ -39,7 +39,7 @@ public class GunBaseScript : MonoBehaviour
         isReloading = false;
     }
 
-    protected void Shoot(float _range)
+    protected void Shoot(float _range, float _damage)
     {
         _muzzle.Play();
 
@@ -57,6 +57,10 @@ public class GunBaseScript : MonoBehaviour
         if (Physics.Raycast(gun.transform.position, direction, out hit, _range))
         {
             Debug.Log(hit.transform.name);
+
+            IDamagable damagable = hit.collider.GetComponent<IDamagable>();
+            if (damagable != null)         
+                damagable.TakeDamage(_damage);        
         }
 
         //creates an impact effect at the hit location then destroys it
