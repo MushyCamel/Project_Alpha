@@ -4,75 +4,110 @@ using UnityEngine;
 
 public class Grenade : MonoBehaviour
 {
-    public Transform Target;
-    public float firingAngle = 45.0f;
-    public float gravity = 9.8f;
-    public float throwRange = 40f;
+    [Header("Properties")]
+    public float gravity = -18f;
+    public float h = 25f;
+    //public float maxRange = 40f;
+    public bool drawPath;
     int floorMask;
     float camRayLength = 100f;
 
-
     private float flightDuration;
 
-    public GameObject prefab;
+    [Header("References")]
+    public Transform Player;
+    public Rigidbody grenadePrefab;
+    public LayerMask clickMask;
 
-    public void Update()
+    void Start()
     {
-        if (Input.GetButtonDown("Ability1"))
+        grenadePrefab.useGravity = false;
+    }
+
+    void Update()
+    {
+  
+        if (Input.GetButton("Ability 1"))
         {
-           
+            if (drawPath)
+            {
+                RenderThrowArc();
+            }
+        }
+        if (Input.GetButtonUp("Ability 1"))
+        {
             ThrowGrenade();
         }
     }
 
-
-    public void ThrowGrenade()
+    void RenderThrowArc()
     {
-        Instantiate(prefab, Target.position, Target.rotation);
+        Vector3 MousePosition = -Vector3.one;
+        MousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition + new Vector3(0, 0, 5f));
 
-        Transform Projectile = prefab.transform;
+        //Render the throwing arc  by using the data calculated.
+        LaunchInfo launchInfo = CalculateLaunchInfo();
+        Vector3 lastPoint = Player.position;
 
-        // Create a ray from the mouse cursor on screen in the direction of the camera.
-        Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        // Create a RaycastHit variable to store information about what was hit by the ray.
-        RaycastHit floorHit;
-
-        Physics.Raycast(camRay, out floorHit, camRayLength, floorMask);
-        
-            Vector3 grenadeToMouse = floorHit.point - transform.position;
-
-            // Calculate distance to target
-            float target_Distance = Vector3.Distance(Projectile.position, Target.position);
-
-            if (target_Distance < throwRange)
-            {
-                // Move projectile to the position of throwing object + add some offset if needed.
-                Projectile.position = grenadeToMouse; //+ new Vector3(0, 0.0f, 0);
-
-
-                // Calculate the velocity needed to throw the object to the target at specified angle.
-                float projectile_Velocity = target_Distance / (Mathf.Sin(2 * firingAngle * Mathf.Deg2Rad) / gravity);
-
-                // Extract the X  Y componenent of the velocity
-                float Vx = Mathf.Sqrt(projectile_Velocity) * Mathf.Cos(firingAngle * Mathf.Deg2Rad);
-                float Vy = Mathf.Sqrt(projectile_Velocity) * Mathf.Sin(firingAngle * Mathf.Deg2Rad);
-
-                // Calculate flight time.
-                float flightDuration = target_Distance / Vx;
-
-                // Rotate projectile to face the target.
-                Projectile.rotation = Quaternion.LookRotation(Target.position - Projectile.position);
-
-                float elapse_time = 0;
-
-                while (elapse_time < flightDuration)
-                {
-                    Projectile.Translate(0, (Vy - (gravity * elapse_time)) * Time.deltaTime, Vx * Time.deltaTime);
-
-                    elapse_time += Time.deltaTime;
-                }
-            }
+        int resolution = 30;
+        for (int i = 1; i <= resolution; i++)
+        {
+            float simulationTime = 1 / (float)resolution * launchInfo.timeToTarget;
+            Vector3 displacement = launchInfo.initialVelocity * simulationTime + Vector3.up * gravity * simulationTime * simulationTime / 2f;
+            Vector3 drawPoint = launchInfo.impactPosition + displacement;
+            Debug.DrawLine(lastPoint, drawPoint, Color.red);
         }
     }
+
+    void ThrowGrenade()
+    {
+        Instantiate(grenadePrefab, Player.position, Player.rotation);
+        Physics.gravity = Vector3.up * gravity;
+        grenadePrefab.velocity = CalculateLaunchInfo().initialVelocity;
+        grenadePrefab.useGravity = true;
+        Debug.Log(CalculateLaunchInfo().initialVelocity);
+    }
+
+    LaunchInfo CalculateLaunchInfo()
+    {
+
+        Vector3 impactPosition = -Vector3.one;
+        // Create a ray from the mouse cursor on screen in the direction of the camera.
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        // Create a RaycastHit variable to store information about what was hit by the ray.
+
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, camRayLength, clickMask))
+        {
+            impactPosition = hit.point;
+        }
+
+        float displacementY = impactPosition.y - Player.position.y;
+        Vector3 displacementXZ = new Vector3(impactPosition.x - Player.position.x, 0, impactPosition.z - Player.position.z);
+        float time = Mathf.Sqrt(-2 * h / gravity) + Mathf.Sqrt(2 * (displacementY - h) / gravity);
+
+        // Calculate the velocity required to get to the 
+        Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * gravity * h);
+        Vector3 velocityXZ = displacementXZ / time;
+
+        return new LaunchInfo(velocityXZ + velocityY * -Mathf.Sign(gravity), time, impactPosition);
+    }
+
+    struct LaunchInfo
+    {
+
+        public readonly Vector3 initialVelocity;
+        public readonly float timeToTarget;
+        public readonly Vector3 impactPosition;
+
+    //constructor
+        public LaunchInfo(Vector3 initialVelocity, float timeToTarget, Vector3 impactPosition)
+        {
+            this.initialVelocity = initialVelocity;
+            this.timeToTarget = timeToTarget;
+            this.impactPosition = impactPosition;
+
+        }
+    }
+}
 

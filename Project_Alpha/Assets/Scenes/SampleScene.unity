@@ -272,7 +272,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 86021861}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.57, y: 0, z: 2.33}
+  m_LocalPosition: {x: 5.57, y: 1, z: 2.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -367,7 +367,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 147860821}
   m_LocalRotation: {x: -0, y: 0.5310823, z: -0, w: 0.8473203}
-  m_LocalPosition: {x: -0.6812949, y: 0, z: 0.42702115}
+  m_LocalPosition: {x: -0.6812949, y: 1, z: 0.42702115}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1480989715}
@@ -416,11 +416,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8892ee16822cb0842b7356e839d5f7df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Target: {fileID: 1795488148}
-  firingAngle: 45
-  gravity: 9.8
-  throwRange: 40
-  prefab: {fileID: 8886493834377385202, guid: 2896989e32373b0479ccc139b65292eb, type: 3}
+  gravity: -18
+  h: 25
+  drawPath: 1
+  Player: {fileID: 147860825}
+  grenadePrefab: {fileID: -6820353814737562827, guid: 2896989e32373b0479ccc139b65292eb,
+    type: 3}
+  clickMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &170076733
 GameObject:
   m_ObjectHideFlags: 0
@@ -700,7 +704,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 604479666}
   m_LocalRotation: {x: -0, y: -0.3821393, z: -0, w: 0.92410475}
-  m_LocalPosition: {x: 4.26, y: 1.1486387, z: 4.37}
+  m_LocalPosition: {x: 4.26, y: 2.09, z: 4.37}
   m_LocalScale: {x: 6.429107, y: 4.126238, z: 0.4885711}
   m_Children: []
   m_Father: {fileID: 0}
@@ -5685,7 +5689,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000913851}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children: []
   m_Father: {fileID: 0}
@@ -5703,7 +5707,7 @@ GameObject:
   - component: {fileID: 1037813573}
   - component: {fileID: 1037813572}
   - component: {fileID: 1037813571}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5777,7 +5781,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1037813570}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
@@ -5916,7 +5920,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1603068742}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.17, y: 1.1486387, z: 3.25}
+  m_LocalPosition: {x: -2.17, y: 2.12, z: 3.25}
   m_LocalScale: {x: 2.6775675, y: 4.126238, z: 0.4885711}
   m_Children: []
   m_Father: {fileID: 0}
@@ -6283,7 +6287,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2113495821}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.453, y: -0.486, z: 5.346}
+  m_LocalPosition: {x: 2.453, y: 0.62, z: 5.346}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
