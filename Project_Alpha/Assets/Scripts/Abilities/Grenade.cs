@@ -6,7 +6,7 @@ public class Grenade : MonoBehaviour
 {
     [Header("Properties")]
     public float gravity = -18f;
-    public float h = 25f;
+    public float h = 4f;
     //public float maxRange = 40f;
     public bool drawPath;
     int floorMask;
@@ -21,17 +21,21 @@ public class Grenade : MonoBehaviour
 
     void Start()
     {
-        grenadePrefab.useGravity = false;
+        grenadePrefab = grenadePrefab.GetComponent<Rigidbody>();
     }
 
     void Update()
     {
-  
+        if (Input.GetButtonDown("Ability 1"))
+        {
+            //spawn grenade, spawn countdown
+        }
         if (Input.GetButton("Ability 1"))
         {
             if (drawPath)
             {
                 RenderThrowArc();
+                //GrenadeExplosion();
             }
         }
         if (Input.GetButtonUp("Ability 1"))
@@ -52,20 +56,33 @@ public class Grenade : MonoBehaviour
         int resolution = 30;
         for (int i = 1; i <= resolution; i++)
         {
-            float simulationTime = 1 / (float)resolution * launchInfo.timeToTarget;
+            float simulationTime = i / (float)resolution * launchInfo.timeToTarget;
             Vector3 displacement = launchInfo.initialVelocity * simulationTime + Vector3.up * gravity * simulationTime * simulationTime / 2f;
-            Vector3 drawPoint = launchInfo.impactPosition + displacement;
+            Vector3 drawPoint = Player.position + displacement;
             Debug.DrawLine(lastPoint, drawPoint, Color.red);
+            lastPoint = drawPoint;
         }
     }
 
     void ThrowGrenade()
     {
-        Instantiate(grenadePrefab, Player.position, Player.rotation);
+        Rigidbody grenade = Instantiate(grenadePrefab, Player.position, Player.rotation);
+
         Physics.gravity = Vector3.up * gravity;
-        grenadePrefab.velocity = CalculateLaunchInfo().initialVelocity;
-        grenadePrefab.useGravity = true;
-        Debug.Log(CalculateLaunchInfo().initialVelocity);
+        grenade.AddForceAtPosition(CalculateLaunchInfo().initialVelocity, Player.position, ForceMode.Impulse);
+    }
+
+    struct LaunchInfo
+    {
+        public readonly Vector3 initialVelocity;
+        public readonly float timeToTarget;
+
+        //constructor
+        public LaunchInfo(Vector3 initialVelocity, float timeToTarget)
+        {
+            this.initialVelocity = initialVelocity;
+            this.timeToTarget = timeToTarget;
+        }
     }
 
     LaunchInfo CalculateLaunchInfo()
@@ -90,24 +107,7 @@ public class Grenade : MonoBehaviour
         Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * gravity * h);
         Vector3 velocityXZ = displacementXZ / time;
 
-        return new LaunchInfo(velocityXZ + velocityY * -Mathf.Sign(gravity), time, impactPosition);
-    }
-
-    struct LaunchInfo
-    {
-
-        public readonly Vector3 initialVelocity;
-        public readonly float timeToTarget;
-        public readonly Vector3 impactPosition;
-
-    //constructor
-        public LaunchInfo(Vector3 initialVelocity, float timeToTarget, Vector3 impactPosition)
-        {
-            this.initialVelocity = initialVelocity;
-            this.timeToTarget = timeToTarget;
-            this.impactPosition = impactPosition;
-
-        }
+        return new LaunchInfo(velocityXZ + velocityY * -Mathf.Sign(gravity), time);
     }
 }
 
