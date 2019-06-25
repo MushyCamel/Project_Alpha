@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d891241367dfb647a0d233899e41e5f, type: 3}
+  m_Name: GrenadeAbility
+  m_EditorClassIdentifier: 
+  aName: Grenade
+  aSprite: {fileID: 0}
+  aBaseCoolDown: 4
+  h: 4
+  _forceMode: 1
+  _blastRadius: 20
+  _force: 100
+  _damage: 100

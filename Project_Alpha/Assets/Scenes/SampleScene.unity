@@ -187,8 +187,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 10
   _blastRadius: 10.16
-  _force: 700
-  _forceMode: 0
+  _force: 7000
+  _forceMode: 1
 --- !u!54 &86021863
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -420,6 +420,11 @@ MonoBehaviour:
   gravity: -18
   h: 4
   drawPath: 1
+  delay: 3
+  _forceMode: 0
+  _blastRadius: 40
+  _force: 2500
+  _damage: 100
   Player: {fileID: 1861776754}
   grenadePrefab: {fileID: -6820353814737562827, guid: 2896989e32373b0479ccc139b65292eb,
     type: 3}

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,8 +10,16 @@ public class Grenade : MonoBehaviour
     public float h = 4f;
     //public float maxRange = 40f;
     public bool drawPath;
+    public float delay = 3f;
+    [Header("Explosion Properties")]
+    public ForceMode _forceMode;
+    public float _blastRadius = 20f;
+    public float _force = 100f;
+    public float _damage = 100f;
+
     int floorMask;
     float camRayLength = 100f;
+    Rigidbody grenade;
 
     private float flightDuration;
 
@@ -19,25 +28,26 @@ public class Grenade : MonoBehaviour
     public Rigidbody grenadePrefab;
     public LayerMask clickMask;
 
-    void Start()
+    public void Initialize()
     {
         grenadePrefab = grenadePrefab.GetComponent<Rigidbody>();
     }
 
-    void Update()
+     public void Fire()
     {
         if (Input.GetButtonDown("Ability 1"))
         {
-            //spawn grenade, spawn countdown
+            Invoke("Explode", delay);
         }
+
         if (Input.GetButton("Ability 1"))
         {
             if (drawPath)
             {
                 RenderThrowArc();
-                //GrenadeExplosion();
             }
         }
+
         if (Input.GetButtonUp("Ability 1"))
         {
             ThrowGrenade();
@@ -64,12 +74,67 @@ public class Grenade : MonoBehaviour
         }
     }
 
-    void ThrowGrenade()
+    public void ThrowGrenade()
     {
         Rigidbody grenade = Instantiate(grenadePrefab, Player.position, Player.rotation);
 
         Physics.gravity = Vector3.up * gravity;
         grenade.AddForceAtPosition(CalculateLaunchInfo().initialVelocity, Player.position, ForceMode.Impulse);
+
+    }
+
+    public void Explode()
+    {
+        GameObject grenadeThrown = GameObject.Find("Grenade(Clone)");
+        if (grenadeThrown == null)
+        {
+            Collider[] collidersAtPlayer = Physics.OverlapSphere(transform.position, _blastRadius);
+
+            foreach (Collider nearbyObject in collidersAtPlayer)
+            {
+                Rigidbody rb = nearbyObject.GetComponent<Rigidbody>();
+                if (rb != null)
+                {
+                    RaycastHit hit;
+                    if (Physics.Raycast(transform.position, nearbyObject.transform.position - transform.position, out hit, Mathf.Infinity))
+                    {
+                        if (hit.collider == nearbyObject)
+                        {
+                            rb.GetComponent<Rigidbody>().AddExplosionForce(_force, transform.position, _blastRadius, 0, _forceMode);
+                            IDamagable damagable = hit.collider.GetComponent<IDamagable>();
+                            if (damagable != null)
+                                damagable.TakeDamage(_damage);
+                        }
+
+                    }
+                }
+            }
+            return;
+        }
+         
+        Collider[] colliders = Physics.OverlapSphere(grenadeThrown.transform.position, _blastRadius);
+
+        foreach (Collider nearbyObject in colliders)
+        {
+            Rigidbody rb = nearbyObject.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                RaycastHit hit;
+                if (Physics.Raycast(grenadeThrown.transform.position, nearbyObject.transform.position - grenadeThrown.transform.position, out hit, Mathf.Infinity))
+                {
+                    if (hit.collider == nearbyObject)
+                    {
+                        rb.GetComponent<Rigidbody>().AddExplosionForce(_force, transform.position, _blastRadius, 0, _forceMode);
+                                                    IDamagable damagable = hit.collider.GetComponent<IDamagable>();
+                        if (damagable != null)
+                            damagable.TakeDamage(_damage);
+                    }
+
+                }
+            }
+        }
+
+        Destroy(grenadeThrown);
     }
 
     struct LaunchInfo
