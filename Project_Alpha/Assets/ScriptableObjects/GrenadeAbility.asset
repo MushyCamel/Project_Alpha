@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GrenadeAbility
   m_EditorClassIdentifier: 
   aName: Grenade
-  aSprite: {fileID: 0}
+  aSprite: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
   aBaseCoolDown: 4
   h: 4
   _forceMode: 1

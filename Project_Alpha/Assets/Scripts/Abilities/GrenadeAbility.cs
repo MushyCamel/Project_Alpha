@@ -16,7 +16,7 @@ public class GrenadeAbility : Ability
     public override void Initialize(GameObject gameObject)
     {
         gAbility = gameObject.GetComponent<Grenade>();
-        gAbility.Start();
+        //gAbility.Initialize();
 
         gAbility._blastRadius = _blastRadius;
         gAbility._force = _force;
@@ -28,7 +28,7 @@ public class GrenadeAbility : Ability
 
     public override void TriggerAbility()
     {
-        gAbility.Update();
+        gAbility.Fire();
     }
 
 
