@@ -34,7 +34,7 @@ public class Grenade : MonoBehaviour
     }
 
      public void Fire()
-    {
+     {
         if (Input.GetButtonDown("Ability 1"))
         {
             Invoke("Explode", delay);
@@ -52,7 +52,7 @@ public class Grenade : MonoBehaviour
         {
             ThrowGrenade();
         }
-    }
+     }
 
     void RenderThrowArc()
     {
