@@ -10,6 +10,7 @@ public class FogProjector : MonoBehaviour
 
     public RenderTexture fogTexture;
 
+    private RenderTexture prevTexture;
     private RenderTexture currTexture;
     private Projector projector;
 
@@ -20,12 +21,14 @@ public class FogProjector : MonoBehaviour
         projector = gameObject.GetComponent<Projector>();
         projector.enabled = true;
 
+        prevTexture = GenerateTexture();
         currTexture = GenerateTexture();
 
         // Projector materials aren't instanced, resulting in the material asset getting changed.
         // Instance it here to prevent us from having to check in or discard these changes manually.
         projector.material = new Material(projectorMaterial);
 
+        projector.material.SetTexture("_PrevTexture", prevTexture);
         projector.material.SetTexture("_CurrTexture", currTexture);
 
         StartNewBlend();
@@ -49,7 +52,7 @@ public class FogProjector : MonoBehaviour
         StopCoroutine(BlendFog());
         blendAmount = 0;
         // Swap the textures
-
+        Graphics.Blit(currTexture, prevTexture);
         Graphics.Blit(fogTexture, currTexture);
 
         StartCoroutine(BlendFog());
@@ -70,4 +73,3 @@ public class FogProjector : MonoBehaviour
         StartNewBlend();
     }
 }
-
