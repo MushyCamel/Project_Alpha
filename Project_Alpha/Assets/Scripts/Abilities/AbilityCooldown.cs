@@ -9,8 +9,8 @@ public class AbilityCooldown : MonoBehaviour
     public Image darkMask;
     public Text coolDownTextDisplay;
 
-    [SerializeField] private Ability _ability;
-    [SerializeField] private GameObject _weaponHolder;
+    private Ability _ability;
+    private GameObject _weaponHolder;
     private Image _myButtonImage;
     private float _coolDownDuration;
     private float _nextReadyTime;
