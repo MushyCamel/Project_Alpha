@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class CharacterSelectorUI : MonoBehaviour
 {
-    public GameObject player;
+    public GameObject[] player;
     public Vector3 playerSpawnPosition = new Vector3(0, 1, -7);
     public Character[] characters;
+    //public GameObject characterPrefab;
 
     public GameObject characterSelectPanel;
     public GameObject abilityPanel;
@@ -16,7 +17,7 @@ public class CharacterSelectorUI : MonoBehaviour
     {
         characterSelectPanel.SetActive(false);
         abilityPanel.SetActive(true);
-        GameObject spawnedPlayer = Instantiate(player, playerSpawnPosition, Quaternion.identity) as GameObject;
+        GameObject spawnedPlayer = Instantiate(player[characterChoice], playerSpawnPosition, Quaternion.identity) as GameObject;
         WeaponMarker weaponMarker = spawnedPlayer.GetComponentInChildren<WeaponMarker>();
         AbilityCooldown[] coolDownButtons = GetComponentsInChildren<AbilityCooldown>();
         Character selectedCharacter = characters[characterChoice];

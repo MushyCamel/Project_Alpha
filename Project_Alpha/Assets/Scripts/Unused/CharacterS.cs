@@ -9,5 +9,7 @@ public class Character : ScriptableObject
     public string characterName = "Default";
     public int startingHp = 100;
 
+    public GameObject characterPrefab;
+
     public Ability[] characterAbilities;
 }
