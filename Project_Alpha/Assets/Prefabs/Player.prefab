@@ -4940,7 +4940,7 @@ GameObject:
   - component: {fileID: 6114360901390786825}
   - component: {fileID: 6114360901390786821}
   m_Layer: 0
-  m_Name: Sniper
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

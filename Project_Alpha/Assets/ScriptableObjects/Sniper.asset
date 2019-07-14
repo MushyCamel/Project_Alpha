@@ -14,7 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Character
   characterName: Sniper
   startingHp: 100
-  characterPrefab: {fileID: 6114360901390786826, guid: 29ee01bf9246af34eb0fa7955087c3e4,
-    type: 3}
   characterAbilities:
   - {fileID: 11400000, guid: 9690c63bdc337124786f34b4865f1eb8, type: 2}
