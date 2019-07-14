@@ -20,7 +20,13 @@ public class CameraMovement : MonoBehaviour
     private float _movementX;
     private float _movementZ;
 
+    private CharacterSelection _characterSelect;
 
+    private void Start()
+    {
+
+
+    }
 
     void Update()
     {
