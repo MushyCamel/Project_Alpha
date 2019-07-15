@@ -450,48 +450,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5732560643106861984, guid: 722c8115ffba64a43949e09515808ad1,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5732560642592644320, guid: 722c8115ffba64a43949e09515808ad1,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: -0.35
-      objectReference: {fileID: 0}
-    - target: {fileID: 5732560642592644320, guid: 722c8115ffba64a43949e09515808ad1,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.72
-      objectReference: {fileID: 0}
-    - target: {fileID: 5732560642592644320, guid: 722c8115ffba64a43949e09515808ad1,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.72
-      objectReference: {fileID: 0}
-    - target: {fileID: 5732560642592644320, guid: 722c8115ffba64a43949e09515808ad1,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.002443469
-      objectReference: {fileID: 0}
-    - target: {fileID: 5732560642592644320, guid: 722c8115ffba64a43949e09515808ad1,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0.28
-      objectReference: {fileID: 0}
-    - target: {fileID: 5732560642592644320, guid: 722c8115ffba64a43949e09515808ad1,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.999997
-      objectReference: {fileID: 0}
-    - target: {fileID: 1969400492940038825, guid: 722c8115ffba64a43949e09515808ad1,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1969400492273274550, guid: 722c8115ffba64a43949e09515808ad1, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 722c8115ffba64a43949e09515808ad1, type: 3}
 --- !u!4 &256777443 stripped
 Transform:
@@ -949,7 +908,7 @@ PrefabInstance:
     - target: {fileID: 6114360901881892417, guid: ebcb4bf3bde081246babcac126e289d1,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ebcb4bf3bde081246babcac126e289d1, type: 3}
@@ -992,7 +951,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cameraSpeed: 15
   smoothFollow: 1
-  player: {fileID: 228197133}
+  player: {fileID: 0}
   offsetX: -5
   offsetZ: -15
   maximumDistance: 2
