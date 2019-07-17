@@ -14,11 +14,6 @@ public class CharacterSelection : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        Initiate();
-    }
-
-    private void Initiate()
-    {
         _index = PlayerPrefs.GetInt("CharacterSelected");
 
         _characterList = new GameObject[transform.childCount];
