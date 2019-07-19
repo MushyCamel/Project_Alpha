@@ -9,12 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0cc3628831a04041b80b3ed77c94ce7, type: 3}
-  m_Name: Sniper
-  m_EditorClassIdentifier: Assembly-CSharp::Character
-  target: {fileID: 0}
-  range: 60
-  enemyTag: Enemy
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 0
+  m_Script: {fileID: 11500000, guid: 34e2a1edb2fc5954b8f85b3825436489, type: 3}
+  m_Name: Shooting State
+  m_EditorClassIdentifier: 

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public Animator animator;
     [SerializeField]
     private float speed = 10;
 
@@ -14,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        
         floorMask = LayerMask.GetMask("Floor");
 
         rig = GetComponent<Rigidbody>();
