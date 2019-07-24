@@ -15,6 +15,7 @@ public class Barrel : MonoBehaviour, IDamagable
     private ForceMode _forceMode;
 
     private float _health;
+    private PlayerStats playerStats;
 
     private void Awake()
     {
@@ -26,8 +27,10 @@ public class Barrel : MonoBehaviour, IDamagable
         _health -= _damage;
         if (_health <= 0)
         {
+            playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
             Debug.Log("BOOM!");
             Explode();
+            playerStats.kills++;
             Destroy(gameObject);
         }
     }

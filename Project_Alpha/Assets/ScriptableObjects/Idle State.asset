@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f87494d4f862185419cd6e9aadb8b8fe, type: 3}
-  m_Name: Moving State
+  m_Script: {fileID: 11500000, guid: 0fda1cec89719134ca31eb1f121b0513, type: 3}
+  m_Name: Idle State
   m_EditorClassIdentifier: 
-  idleState: {fileID: 11400000, guid: 888f029b0ac100b4ea3b701b0f58e897, type: 2}
-  shootingState: {fileID: 11400000, guid: c512e7cb15ef2d3489eea584b7620288, type: 2}
-  speed: 10
+  movingState: {fileID: 11400000, guid: 6baaec65adfb16d41b3b6612a94a359c, type: 2}
