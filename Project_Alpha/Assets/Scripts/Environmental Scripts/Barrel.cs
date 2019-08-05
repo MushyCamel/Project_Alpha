@@ -30,7 +30,7 @@ public class Barrel : MonoBehaviour, IDamagable
             playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
             Debug.Log("BOOM!");
             Explode();
-            playerStats.kills++;
+            //playerStats.kills++;
             Destroy(gameObject);
         }
     }

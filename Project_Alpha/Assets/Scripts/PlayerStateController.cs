@@ -54,12 +54,20 @@ public class PlayerStateController : MonoBehaviour
     {
         //loop through the currentstate and finds it then runs leave if not null
         var realState = currentState.Find(s => state == s);
-        if (realState == null)
+        if (realState != null)
             return;
 
-        await realState.Enter(gameObject);
-        currentState.Add(realState);
+        await state.Enter(gameObject);
+        currentState.Add(state);
 
+    }
+
+    
+    public static T FindState<T>() where T : BaseState
+    {
+        //currentState is an array of Base States
+        //Goes through every state in currentState and trys to find the one that we specified. ie We want moving state, it tries to find moving state.
+        return currentState.Find(s => typeof(T) == s.GetType()) as T;      
     }
 
 }

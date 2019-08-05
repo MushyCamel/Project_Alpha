@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using System.Threading.Tasks;
 using UnityEngine;
+using System.Threading;
 
 [CreateAssetMenu(menuName = "States/MovingState")]
 public class MovingState : BaseState
@@ -10,46 +11,44 @@ public class MovingState : BaseState
     public IdleState idleState;
     public ShootingState shootingState;
 
-    [SerializeField]
-    private float speed = 10;
+    public float speed = 10;
 
     private Rigidbody rig;
+    private Transform playerTransform;
     int floorMask;
     float camRayLength = 100f;
 
+    CancellationTokenSource idleStateCheckToken;
+
     public override async Task Enter(GameObject player)
     {
-
         floorMask = LayerMask.GetMask("Floor");
 
         rig = player.GetComponent<Rigidbody>();
+
+        playerTransform = player.transform;
+
+        idleStateCheckToken = new CancellationTokenSource();
+        IdleStateCheck(idleStateCheckToken.Token);
 
         await new WaitForEndOfFrame();
         Debug.Log("entered state " + nameof(MovingState));
     }
 
     public override async void Actions(GameObject player)
-    {
-        
+    { 
         Move();
-
         Turning();
-
-        if (rig.velocity.magnitude <= 0.02)
-        {
-            Stop();
-            TriggerState(idleState);
-        }
 
         if (Input.GetButtonDown("Fire1"))
         {
             TriggerState(shootingState);
         }
-
     }
 
     public override async Task Leave(GameObject player)
     {
+        idleStateCheckToken.Cancel();
         await new WaitForEndOfFrame();
         Debug.Log("leaving State");
 
@@ -80,6 +79,22 @@ public class MovingState : BaseState
             playerToMouse.y = 0f;
             Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
             rig.MoveRotation(newRotation);
+        }
+    }
+
+    public async void IdleStateCheck(CancellationToken token)
+    {
+        //Checks if the player position is the same after a second and triggers idle
+        while (token.IsCancellationRequested == false)
+        {
+            var currentPosition = playerTransform.position;
+            var currentRotation = playerTransform.rotation;
+            await new WaitForSeconds(1);
+            if(playerTransform.position == currentPosition && playerTransform.rotation == currentRotation)
+            {
+                TriggerState(idleState);
+                Stop();                
+            }
         }
     }
 

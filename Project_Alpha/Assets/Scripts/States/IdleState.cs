@@ -17,9 +17,9 @@ public class IdleState : BaseState
     }
 
     //while in the state
-    public override async void Actions(GameObject player)
+    public override void Actions(GameObject player)
     {
-        if(Input.anyKeyDown)
+        if(Input.anyKeyDown || Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
         {
            TriggerState(movingState);
         }

@@ -16,7 +16,7 @@ public class ShotgunScript : GunBaseScript
     private float nextTimeToFire = 0f;
 
     // Update is called once per frame
-    void Update()
+    public override void Fire()
     {
         if (isReloading)
             return;
@@ -33,6 +33,7 @@ public class ShotgunScript : GunBaseScript
             ShootShotgun();
         }
     }
+
     private void ShootShotgun()
     {
         _muzzle.Play();

@@ -39,6 +39,11 @@ public class GunBaseScript : MonoBehaviour
         isReloading = false;
     }
 
+    public virtual void Fire()
+    {
+
+    }
+
     protected void Shoot(float _range, float _damage)
     {
         _muzzle.Play();

@@ -11,7 +11,7 @@ public class KillEnemies : Objective
 
     void Awake()
     {
-        playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
+        playerStats = GameObject.Find("PlayerStats").GetComponent<PlayerStats>();
     }
 
     public override bool IsAchieved()

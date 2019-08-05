@@ -14,7 +14,7 @@ public class MachinegunScript : GunBaseScript
     private float nextTimeToFire = 0f;
 
     // Update is called once per frame
-    public void Fire()
+    public override void Fire()
     {
         if (isReloading)
             return;

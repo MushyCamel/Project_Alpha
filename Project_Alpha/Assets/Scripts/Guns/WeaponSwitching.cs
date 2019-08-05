@@ -16,33 +16,6 @@ public class WeaponSwitching : MonoBehaviour
         SelectWeapon();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        int previouslySelectedWeapon = _selectedWeapon;
-
-        if (Input.GetAxis("Mouse ScrollWheel") > 0f)
-        {
-            if (_selectedWeapon >= transform.childCount - 1)
-                _selectedWeapon = 0;
-                    else
-            _selectedWeapon++;
-        }
-
-        if (Input.GetAxis("Mouse ScrollWheel") < 0f)
-        {
-            if (_selectedWeapon <= 0)
-                _selectedWeapon = transform.childCount - 1;
-            else
-                _selectedWeapon--;
-        }
-
-        if (previouslySelectedWeapon != _selectedWeapon)
-        {
-            SelectWeapon();
-        }
-    }
-
     private void SelectWeapon()
     {
         int i = 0;
@@ -54,5 +27,15 @@ public class WeaponSwitching : MonoBehaviour
                 weapon.gameObject.SetActive(false);
             i++;
         }
+    }
+
+    public void Switch()
+    {
+        if (_selectedWeapon >= transform.childCount - 1)
+            _selectedWeapon = 0;
+        else
+            _selectedWeapon++;
+
+        SelectWeapon();
     }
 }

@@ -12,7 +12,7 @@ public class PistolScript : GunBaseScript
 
 
     // Update is called once per frame
-    public void Fire()
+    public override void Fire()
     {
         if (isReloading)
             return;
