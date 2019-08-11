@@ -21,7 +21,7 @@ public class ShootingState : BaseState
 
     public override async Task Enter(GameObject player)
     {
-        if(primaryGun == null)
+        if (primaryGun == null)
             primaryGun = player.GetComponentInChildren<MachinegunScript>();
         if (primaryGun == null)
             primaryGun = player.GetComponentInChildren<SniperScript>();

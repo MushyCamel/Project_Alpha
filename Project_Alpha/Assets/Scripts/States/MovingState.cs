@@ -48,6 +48,7 @@ public class MovingState : BaseState
 
     public override async Task Leave(GameObject player)
     {
+        //cancels token to stop potential while true look continuing to loop indefinately
         idleStateCheckToken.Cancel();
         await new WaitForEndOfFrame();
         Debug.Log("leaving State");
