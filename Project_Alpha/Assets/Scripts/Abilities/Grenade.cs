@@ -2,8 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Grenade : MonoBehaviour
+
+public class Grenade : AbilityBaseClass
 {
     [Header("Properties")]
     public float gravity = -18f;
@@ -11,6 +13,9 @@ public class Grenade : MonoBehaviour
     //public float maxRange = 40f;
     public bool drawPath;
     public float delay = 3f;
+    public float aBaseCoolDown = 1f;
+
+
     [Header("Explosion Properties")]
     public ForceMode _forceMode;
     public float _blastRadius = 20f;
@@ -22,37 +27,53 @@ public class Grenade : MonoBehaviour
     Rigidbody grenade;
 
     private float flightDuration;
+    private float _nextReadyTime;
+    private float _coolDownTimeLeft;
 
     [Header("References")]
     public Transform Player;
     public Rigidbody grenadePrefab;
     public LayerMask clickMask;
 
+
+
     public void Initialize()
     {
         grenadePrefab = grenadePrefab.GetComponent<Rigidbody>();
     }
 
-     public void Fire()
+     public void Update()
      {
-        if (Input.GetButtonDown("Ability 1"))
-        {
-            Invoke("Explode", delay);
-        }
 
-        if (Input.GetButton("Ability 1"))
-        {
-            if (drawPath)
+         bool coolDownComplete = (Time.time > _nextReadyTime);
+         if (coolDownComplete)
+         {
+            AbilityReady();
+            if (Input.GetButtonDown("Ability 1"))
             {
-                RenderThrowArc();
+                Invoke("Explode", delay);
+            }
+
+            if (Input.GetButton("Ability 1"))
+            {
+                if (drawPath)
+                {
+                    RenderThrowArc();
+                }
+            }
+
+            if (Input.GetButtonUp("Ability 1"))
+            {
+                ThrowGrenade();
             }
         }
-
-        if (Input.GetButtonUp("Ability 1"))
+         else
         {
-            ThrowGrenade();
+            CoolDown(aBaseCoolDown);
         }
-     }
+    }
+
+
 
     void RenderThrowArc()
     {
@@ -174,5 +195,7 @@ public class Grenade : MonoBehaviour
 
         return new LaunchInfo(velocityXZ + velocityY * -Mathf.Sign(gravity), time);
     }
+
+
 }
 

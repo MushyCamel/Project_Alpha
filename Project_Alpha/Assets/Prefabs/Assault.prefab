@@ -61,15 +61,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8892ee16822cb0842b7356e839d5f7df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  abilityButtonAxisName: Ability 1
+  darkMask: {fileID: 0}
+  coolDownTextDisplay: {fileID: 0}
+  aSprite: {fileID: 0}
   gravity: -18
   h: 4
   drawPath: 0
   delay: 3
+  aBaseCoolDown: 1
   _forceMode: 0
   _blastRadius: 20
   _force: 100
   _damage: 100
-  Player: {fileID: 5732560643106861987}
+  Player: {fileID: 5732560642673257352}
   grenadePrefab: {fileID: -6820353814737562827, guid: 2896989e32373b0479ccc139b65292eb,
     type: 3}
   clickMask:
